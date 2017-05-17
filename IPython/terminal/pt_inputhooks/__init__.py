@@ -7,7 +7,7 @@ aliases = {
 }
 
 backends = [
-    'qt', 'qt4', 'qt5',
+    'qt', 'qt4', 'qt5', 'pythonqt',
     'gtk', 'gtk2', 'gtk3',
     'tk',
     'wx',
@@ -43,6 +43,9 @@ def get_inputhook_name_and_func(gui):
     gui_mod = gui
     if gui == 'qt5':
         os.environ['QT_API'] = 'pyqt5'
+        gui_mod = 'qt'
+    elif gui == 'pythonqt':
+        os.environ['QT_API'] = 'pythonqt'
         gui_mod = 'qt'
 
     mod = importlib.import_module('IPython.terminal.pt_inputhooks.'+gui_mod)
