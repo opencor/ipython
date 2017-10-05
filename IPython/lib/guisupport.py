@@ -124,27 +124,23 @@ def is_event_loop_running_qt4(app=None):
     # New way: check attribute on shell instance
     ip = get_ipython()
     if ip is not None:
-        return ip.active_eventloop and ip.active_eventloop.startswith('qt')
+        return ip.active_eventloop and ip.active_eventloop.contains('qt')
 
     # Old way: check attribute on QApplication singleton
     if app is None:
         app = get_app_qt4([''])
-    if hasattr(app, '_in_event_loop'):
-        return app._in_event_loop
-    else:
-        # Does qt4 provide a other way to detect this?
-        return False
+    return app.property('in_event_loop') == 1
 
 def start_event_loop_qt4(app=None):
     """Start the qt4 event loop in a consistent manner."""
     if app is None:
         app = get_app_qt4([''])
     if not is_event_loop_running_qt4(app):
-        app._in_event_loop = True
+        app.setProperty('in_event_loop', 1)
         app.exec_()
-        app._in_event_loop = False
+        app.setProperty('in_event_loop', 0)
     else:
-        app._in_event_loop = True
+        app.setProperty('in_event_loop', 0)
 
 #-----------------------------------------------------------------------------
 # Tk
