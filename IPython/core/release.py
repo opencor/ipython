@@ -20,7 +20,7 @@ name = 'ipython'
 # release.  'dev' as a _version_extra string means this is a development
 # version
 _version_major = 6
-_version_minor = 2
+_version_minor = 3
 _version_patch = 1
 _version_extra = '.dev'
 # _version_extra = 'rc2'
@@ -114,5 +114,6 @@ classifiers = [
     'License :: OSI Approved :: BSD License',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3 :: Only',
     'Topic :: System :: Shells'
     ]

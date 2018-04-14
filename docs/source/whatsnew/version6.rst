@@ -3,14 +3,44 @@
 ============
 
 
-.. _whatsnew621:
+.. _whatsnew631:
 
-IPython 6.2.1
+IPython 6.3.1
 =============
 
-IPython 6.2.1 ships with two minor fixes leading to no completions when using
-Jedi 0.11+ :ghpull:`10824`, and crash on some linux system with virtualenv
-:ghpull:`10829`
+This is a bugfix release to switch the default completions back to IPython's
+own completion machinery. We discovered some problems with the completions
+from Jedi, including completing column names on pandas data frames.
+
+You can switch the completions source with the config option
+:configtrait:`Completer.use_jedi`.
+
+.. _whatsnew630:
+
+IPython 6.3
+===========
+
+IPython 6.3 contains all the bug fixes and features in
+:ref:`IPython 5.6 <whatsnew560>`. In addition:
+
+* A new display class :class:`IPython.display.Code` can be used to display
+  syntax highlighted code in a notebook (:ghpull:`10978`).
+* The :cellmagic:`html` magic now takes a ``--isolated`` option to put the
+  content in an iframe (:ghpull:`10962`).
+* The code to find completions using the Jedi library has had various
+  adjustments. This is still a work in progress, but we hope this version has
+  fewer annoyances (:ghpull:`10956`, :ghpull:`10969`, :ghpull:`10999`,
+  :ghpull:`11035`, :ghpull:`11063`, :ghpull:`11065`).
+* The *post* event callbacks are now always called, even when the execution failed
+  (for example because of a ``SyntaxError``).
+* The execution info and result objects are now made available in the
+  corresponding *pre* or *post* ``*_run_cell`` :doc:`event callbacks </config/callbacks>`
+  in a backward compatible manner (:ghissue:`10774` and :ghpull:`10795`).
+* Performance with very long code cells (hundreds of lines) is greatly improved
+  (:ghpull:`10898`). Further improvements are planned for IPython 7.
+
+You can see all `pull requests for the 6.3 milestone
+<https://github.com/ipython/ipython/pulls?utf8=%E2%9C%93&q=is%3Apr+milestone%3A6.3+is%3Aclosed>`__.
 
 .. _whatsnew620:
 
@@ -147,7 +177,7 @@ You should be able to update by using:
 .. note::
 
     If your pip version is greater than or equal to pip 9.0.1 you will automatically get
-    the most recent version of IPython compatible with your system: on Python 2 you 
+    the most recent version of IPython compatible with your system: on Python 2 you
     will get the latest IPython 5.x bugfix, while in Python 3
     you will get the latest 6.x stable version.
 
@@ -192,7 +222,7 @@ Extra patches and updates will be needed to the :mod:`ipykernel` package for
 this feature to be available to other clients like Jupyter Notebook, Lab,
 Nteract, Hydrogen...
 
-The use of Jedi should be barely noticeable on recent machines, but 
+The use of Jedi should be barely noticeable on recent machines, but
 can be slower on older ones.  To tweak the performance, the amount
 of time given to Jedi to compute type inference can be adjusted with
 ``c.IPCompleter.jedi_compute_type_timeout``. The objects whose type were not
@@ -228,7 +258,7 @@ of advantages. Most of the newly written code make use of `optional function typ
 annotation <https://www.python.org/dev/peps/pep-0484/>`_ leading to clearer code
 and better documentation.
 
-The total size of the repository has also decreased by about 1500 lines (for the 
+The total size of the repository has also decreased by about 1500 lines (for the
 first time excluding the big split for 4.0). The decrease is potentially
 a bit more for the sour as some documents like this one are append only and
 are about 300 lines long.
